@@ -21,18 +21,3 @@ spec:
           imagePullPolicy: {{ .Values.frontend.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.frontend.port }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.frontend.name }}
-  labels:
-   # {{- include "assessment.labels" . | nindent 4 }}
-spec:
-  type: NodePort
-  selector:
-    app: {{ .Values.frontend.name }}
-  ports:
-    - port: {{ .Values.frontend.port }}
-      targetPort: {{ .Values.frontend.port }}
-      nodePort: {{ .Values.frontend.nodePort }}

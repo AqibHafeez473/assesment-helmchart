@@ -24,18 +24,4 @@ spec:
           env:
             - name: QUOTES_API
               value: {{ .Values.api.env.quotesApi }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.api.name }}
-  labels:
-  #  {{- include "assessment.labels" . | nindent 4 }}
-spec:
-  type: NodePort
-  selector:
-    app: {{ .Values.api.name }}
-  ports:
-    - port: {{ .Values.api.port }}
-      targetPort: {{ .Values.api.port }}
-      nodePort: {{ .Values.api.nodePort }}
+

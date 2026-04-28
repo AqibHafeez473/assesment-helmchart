@@ -21,16 +21,4 @@ spec:
           imagePullPolicy: {{ .Values.quotes.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.quotes.port }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.quotes.name }}
-  labels:
-   # {{- include "assessment.labels" . | nindent 4 }}
-spec:
-  selector:
-    app: {{ .Values.quotes.name }}
-  ports:
-    - port: {{ .Values.quotes.port }}
-      targetPort: {{ .Values.quotes.port }}
+
