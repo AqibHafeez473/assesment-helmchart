@@ -1,0 +1,4 @@
+apiVersion: v2
+name: assessment
+description: Assessment App Helm Chart
+version: 0.1.0

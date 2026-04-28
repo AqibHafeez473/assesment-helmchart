@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.quotes.name }}
+  labels:
+ #   {{- include "assessment.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.quotes.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.quotes.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.quotes.name }}
+     #   {{- include "assessment.labels" . | nindent 4 }}
+    spec:
+      containers:
+        - name: {{ .Values.quotes.name }}
+          image: {{ .Values.quotes.image }}
+          imagePullPolicy: {{ .Values.quotes.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.quotes.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.quotes.name }}
+  labels:
+   # {{- include "assessment.labels" . | nindent 4 }}
+spec:
+  selector:
+    app: {{ .Values.quotes.name }}
+  ports:
+    - port: {{ .Values.quotes.port }}
+      targetPort: {{ .Values.quotes.port }}

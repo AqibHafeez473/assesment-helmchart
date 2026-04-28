@@ -1,0 +1,25 @@
+quotes:
+  name: quotes
+  image: assessment/quote-service:latest
+  imagePullPolicy: Never
+  replicaCount: 1
+  port: 5000
+
+api:
+  name: api
+  image: assessment/api-gateway:latest
+  imagePullPolicy: Never
+  replicaCount: 1
+  port: 3000
+  nodePort: 30300
+  env:
+    quotesApi: "http://quotes:5000/api/quote"
+
+
+frontend:
+  name: frontend
+  image: assessment/frontend:latest
+  imagePullPolicy: Never
+  replicaCount: 1
+  port: 80
+  nodePort: 30080
