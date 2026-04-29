@@ -23,14 +23,13 @@ spec:
             - containerPort: {{ .Values.quotes.port }}
           livenessProbe:
             httpGet:
-              path: /api/quote
+              path: {{ .Values.quotes.probe.path }}
               port: {{ .Values.quotes.port }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            initialDelaySeconds: {{ .Values.quotes.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.quotes.probe.periodSeconds }}
           readinessProbe:
             httpGet:
-              path: /api/quote
+              path: {{ .Values.quotes.probe.path }}
               port: {{ .Values.quotes.port }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
-
+            initialDelaySeconds: {{ .Values.quotes.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.quotes.probe.periodSeconds }}

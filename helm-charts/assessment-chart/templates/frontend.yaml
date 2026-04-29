@@ -30,13 +30,13 @@ spec:
               value: {{ .Values.frontend.env.Api | quote }}
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.frontend.probe.path }}
               port: {{ .Values.frontend.port }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            initialDelaySeconds: {{ .Values.frontend.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.frontend.probe.periodSeconds }}
           readinessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.frontend.probe.path }}
               port: {{ .Values.frontend.port }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            initialDelaySeconds: {{ .Values.frontend.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.frontend.probe.periodSeconds }}

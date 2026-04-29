@@ -28,4 +28,15 @@ spec:
           env:
             - name: QUOTES_API
               value: {{ .Values.api.env.quotesApi | quote }}
-         
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.api.probe.path }}
+              port: {{ .Values.api.port }}
+            initialDelaySeconds: {{ .Values.api.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.api.probe.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.api.probe.path }}
+              port: {{ .Values.api.port }}
+            initialDelaySeconds: {{ .Values.api.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.api.probe.periodSeconds }}
