@@ -15,6 +15,10 @@ spec:
         app: {{ .Values.api.name }}
         #{{- include "assessment.labels" . | nindent 8 }}
     spec:
+      initContainers:
+        - name: wait-for-quotes
+          image: busybox:1.36
+          command: ['sh', '-c', 'until wget -qO- {{ .Values.api.env.quotesApi }}/api/quote; do echo waiting for quotes; sleep 2; done;']
       containers:
         - name: {{ .Values.api.name }}
           image: {{ .Values.api.image }}
@@ -23,5 +27,5 @@ spec:
             - containerPort: {{ .Values.api.port }}
           env:
             - name: QUOTES_API
-              value: {{ .Values.api.env.quotesApi }}
-
+              value: {{ .Values.api.env.quotesApi | quote }}
+         

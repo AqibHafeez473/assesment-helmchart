@@ -21,4 +21,16 @@ spec:
           imagePullPolicy: {{ .Values.quotes.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.quotes.port }}
+          livenessProbe:
+            httpGet:
+              path: /api/quote
+              port: {{ .Values.quotes.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/quote
+              port: {{ .Values.quotes.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
 

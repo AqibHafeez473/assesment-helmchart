@@ -1,24 +1,24 @@
-var api = process.env.API_GATEWAY // get the API Gateway from the environment
+var api = "" // use relative URL - nginx proxies /api to the API Gateway
 
-$(document).ready(function() {
-    $("#btn").click(function() {
+$(document).ready(function () {
+    $("#btn").click(function () {
         $.ajax({
             url: api + "/api/randomquote",
             type: "GET",
             dataType: "json",
             timeout: 3000,
-            success: function(data) {
-                $("#quote").removeClass('is-danger') 
+            success: function (data) {
+                $("#quote").removeClass('is-danger')
                 $("#quote").addClass('is-link')
-                $( "#quote" ).html(data.quote.quote + '</br><b>'+ data.quote.by +'</b>'); 
+                $("#quote").html(data.quote.quote + '</br><b>' + data.quote.by + '</b>');
             },
-            error: function(xmlhttprSequest, textstatus, message) {
+            error: function (xmlhttprSequest, textstatus, message) {
                 $("#quote").removeClass('is-link')
                 $("#quote").addClass('is-danger')
-                if(textstatus==="timeout") {
-                    $( "#quote" ).html("got timeout");
+                if (textstatus === "timeout") {
+                    $("#quote").html("got timeout");
                 } else {
-                    $( "#quote" ).html(message);
+                    $("#quote").html(message);
                 }
             }
         })

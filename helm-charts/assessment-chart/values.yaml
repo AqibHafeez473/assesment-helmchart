@@ -4,6 +4,10 @@ quotes:
   imagePullPolicy: Never
   replicaCount: 1
   port: 5000
+  probe:
+    path: "/api/quote"
+    initialDelaySeconds: 5
+    periodSeconds: 10
 
 api:
   name: api
@@ -13,7 +17,11 @@ api:
   port: 3000
   nodePort: 30300
   env:
-    quotesApi: "http://quotes:5000/api/quote"
+    quotesApi: "http://quotes:5000"
+  probe:
+    path: "/api/status"
+    initialDelaySeconds: 5
+    periodSeconds: 10
 
 
 frontend:
@@ -23,3 +31,9 @@ frontend:
   replicaCount: 1
   port: 80
   nodePort: 30080
+  env:
+     Api: "http://api:3000"
+  probe:
+    path: "/"
+    initialDelaySeconds: 5
+    periodSeconds: 10
